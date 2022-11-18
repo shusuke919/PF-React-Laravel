@@ -12,5 +12,4 @@ import "./bootstrap";
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
-require('./components/pages/Example');
+require("./route");
