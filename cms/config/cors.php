@@ -15,6 +15,7 @@ return [
     |
     */
 
+    // corsを許可するパスの設定
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
@@ -29,6 +30,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
-
+    // クッキー認証の許可
+    'supports_credentials' => true,
 ];

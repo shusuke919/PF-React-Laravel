@@ -4,6 +4,9 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+// ミドルウェア追加　　ミドルウェアってなに？
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+
 class Kernel extends HttpKernel
 {
     /**
@@ -39,11 +42,20 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
+    // EnsureFrontendRequestsAreStatefulクラスの処理
+    // ・セッションクッキーのセキュア設定を強制
+    // ・cookie のスコープ(参照・操作の権限)を HTTP リクエストに制限し、javascriptなどから直接参照・操作されないようにする
+    // ・クッキーの暗号化
+    // ・レスポンスにクッキー付与(\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class)
+    // ・セッションの開始
+    // ・laravel_sessionをレスポンスに追加
+    // ・CSRFトークンを検証する
+
 
     /**
      * The application's route middleware.
