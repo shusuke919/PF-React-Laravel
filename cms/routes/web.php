@@ -13,15 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//初期設定
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-Route::get('{any}', function () {
+///元のwebルート↓apiプレフィックスのルートは除外しておかないと、APIルートでwhereでの制約をかけたときに予期しない動作を起こす原因となる
+// Route::get('{any}', function () {
+//     return view('app');
+// })->where('any','.*');
+
+
+Route::get('/{any?}', function () {
     return view('app');
-})->where('any','.*');
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+})->where('any','(?!api).+');
